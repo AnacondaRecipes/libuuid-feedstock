@@ -16,7 +16,7 @@ build:
 test:
     commands:
         - test -f ${PREFIX}/lib/libuuid.a  # [unix]
-        - conda inspect linkages -n _test libuuid  # [unix]
+        - conda inspect linkages libuuid  # [unix]
 
 about:
     home: http://sourceforge.net/projects/libuuid/
