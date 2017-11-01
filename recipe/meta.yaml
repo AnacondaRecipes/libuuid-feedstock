@@ -10,8 +10,11 @@ source:
     sha256: 46af3275291091009ad7f1b899de3d0cea0252737550e7919d17237997db5644
 
 build:
-    number: 1
+    number: 2
     skip: True  # [win]
+    run_exports:
+      # no info on abi lab.  Leaving defaults.
+      - {{ pin_subpackage('libuuid') }}
 
 requirements:
     build:
