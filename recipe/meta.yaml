@@ -1,4 +1,4 @@
-{% set version = "1.0.3" %}
+{% set version = "2.36" %}
 
 package:
     name: libuuid
@@ -7,7 +7,7 @@ package:
 source:
     fn: libuuid-{{ version }}.tar.gz
     url: https://sourceforge.mirrorservice.org/l/li/libuuid/libuuid-{{ version }}.tar.gz
-    sha256: 46af3275291091009ad7f1b899de3d0cea0252737550e7919d17237997db5644
+    sha256: dd099ce1432d4877105fdc9dc4b2e68b726db5c777e7907ffd69c6e877824459
 
 build:
     number: 2
