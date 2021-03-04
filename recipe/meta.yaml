@@ -20,7 +20,7 @@ requirements:
     build:
         # No compiler for osx since this is a build requirement of the osx compiler
         - {{ compiler('c') }}  # [linux]
-	- make
+        - make
 
 test:
     commands:
