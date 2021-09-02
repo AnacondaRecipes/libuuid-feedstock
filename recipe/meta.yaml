@@ -21,7 +21,7 @@ requirements:
         # No compiler for osx since this is a build requirement of the osx compiler
         - {{ compiler('c') }}  # [linux]
         - make
-
+        - libtool  # [not win]
 test:
     commands:
         - test -f ${PREFIX}/lib/libuuid.a  # [unix]
