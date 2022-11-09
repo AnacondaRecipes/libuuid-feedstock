@@ -26,8 +26,8 @@ requirements:
 test:
   commands:
     - test -f ${PREFIX}/lib/libuuid.a # [unix]
-    - test -f ${PREFIX}/lib/$PREFIX/lib/libuuid.so  # [linux]
-    - test -f ${PREFIX}/lib/$PREFIX/lib/libuuid.dylib  # [osx]
+    - test -f ${PREFIX}/lib/libuuid.so  # [linux]
+    - test -f ${PREFIX}/lib//libuuid.dylib  # [osx]
     - echo "make linter happy"
 
 about:
