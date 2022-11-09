@@ -26,6 +26,8 @@ requirements:
 test:
   commands:
     - test -f ${PREFIX}/lib/libuuid.a # [unix]
+    - ls ${PREFIX}/lib/libuuid* # [unix]
+    - echo "make linter happy"
 
 about:
   home: https://sourceforge.net/projects/libuuid/
