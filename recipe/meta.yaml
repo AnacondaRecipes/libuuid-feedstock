@@ -19,7 +19,7 @@ build:
 
 requirements:
   build:
-    - gnuconfig
+    - libtool
     - {{ compiler('c') }}
     - make
 
