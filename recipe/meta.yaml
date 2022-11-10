@@ -14,8 +14,8 @@ source:
 build:
     number: 0
     skip: True  # [win]
-    # missing_dso_whitelist:
-    #  - $RPATH/
+    missing_dso_whitelist:
+      - $RPATH/ld64.so.1
     run_exports:
         # https://abi-laboratory.pro/index.php?view=timeline&l=util-linux
         - {{ pin_subpackage('libuuid') }}
