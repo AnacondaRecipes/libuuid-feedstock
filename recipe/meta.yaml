@@ -1,35 +1,40 @@
-{% set version = "1.0.3" %}
+{% set major_minor = "2.32" %}
+{% set version = major_minor + ".1" %}
+{% set compat_version = "1.41.5" %}
 
 package:
     name: libuuid
-    version: {{ version }}
+    version: {{ compat_version }}
 
 source:
     fn: libuuid-{{ version }}.tar.gz
-    url: http://sourceforge.net/projects/libuuid/files/libuuid-{{ version }}.tar.gz/download
-    sha256: 46af3275291091009ad7f1b899de3d0cea0252737550e7919d17237997db5644
+    url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v{{ major_minor }}/util-linux-{{ version }}.tar.gz
+    sha256: 3bbf9f3d4a33d6653cf0f7e4fc422091b6a38c3b1195c0ee716c67148a1a7122
 
 build:
-    number: 2
+    number: 0
     skip: True  # [win]
+    missing_dso_whitelist:
+      - $RPATH/
     run_exports:
-      # no info on abi lab.  Leaving defaults.
-      - {{ pin_subpackage('libuuid') }}
+        # https://abi-laboratory.pro/index.php?view=timeline&l=util-linux
+        - {{ pin_subpackage('libuuid') }}
 
 requirements:
     build:
-        # No compiler for osx since this is a build requirement of the osx compiler
-        - {{ compiler('c') }}  # [linux]
-        - make
-        - libtool  # [not win]
+        - gnuconfig  # [unix]
+        - {{ compiler('c') }}
+        - make  # [unix]
+
 test:
     commands:
         - test -f ${PREFIX}/lib/libuuid.a  # [unix]
-        - conda inspect linkages libuuid  # [unix]
 
 about:
     home: http://sourceforge.net/projects/libuuid/
-    license: BSD 3-Clause
+    license: BSD-3-Clause
+    license_family: BSD
+    license_file: Documentation/licenses/COPYING.BSD-3
     summary: 'Portable uuid C library.'
 
 extra:
