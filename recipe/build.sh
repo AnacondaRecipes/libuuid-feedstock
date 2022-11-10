@@ -1,9 +1,13 @@
 #!/bin/bash
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./config
 
-cp -r ${BUILD_PREFIX}/share/libtool/build-aux/config.* .
+bash configure --prefix=$PREFIX --disable-all-programs --enable-libuuid --with-bashcompletiondir=$PREFIX/share
 
-bash configure --prefix=$PREFIX --build=${BUILD}
-
-make -j${CPU_COUNT} ${VERBOSE_AT}
-make check
+make
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
+make tests
+fi
 make install
+
+rm -fr $PREFIX/share
