@@ -13,8 +13,6 @@ source:
 build:
     number: 0
     skip: true  # [win]
-    missing_dso_whitelist:
-      - $RPATH/ld64.so.1
     run_exports:
         - {{ pin_subpackage(name) }}
 
@@ -24,13 +22,16 @@ requirements:
         - {{ compiler('c') }}
         - {{ stdlib('c') }}
         - make  # [unix]
+    host:
+        # macOS needs external libintl for NLS; Linux provides gettext in libc.
+        - libintl-devel {{ libintl }}  # [osx] analint: host_section_needs_exact_pinnings  # pinned by the libintl CBC key
 
 test:
     requires:
         - {{ compiler('c') }}
         - pkg-config
     commands:
-        - test -f ${PREFIX}/lib/libuuid.a      # [unix]
+        - test ! -f ${PREFIX}/lib/libuuid.a    # [unix]
         - test -f ${PREFIX}/lib/libuuid.so     # [linux]
         - test -f ${PREFIX}/lib/libuuid.dylib  # [osx]
         - test -f ${PREFIX}/include/uuid/uuid.h

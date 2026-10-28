@@ -7,9 +7,7 @@ cp "$BUILD_PREFIX"/share/gnuconfig/config.* ./config
 bash configure --prefix="$PREFIX" \
     --disable-all-programs \
     --enable-libuuid \
-    --enable-static \
-    --enable-shared \
-    --disable-nls
+    --disable-static
 
 make -j"${CPU_COUNT}" libuuid.la
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" != "1" ]]; then
