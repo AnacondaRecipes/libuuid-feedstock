@@ -1,6 +1,6 @@
 {% set name = "libuuid" %}
 {% set version = "2.42.4" %}
-{% set major_minor = "2.42" %}
+{% set major_minor = ".".join(version.split(".")[:2]) %}
 
 package:
     name: {{ name }}
