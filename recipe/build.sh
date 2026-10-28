@@ -1,13 +1,20 @@
 #!/bin/bash
+set -ex
+
 # Get an updated config.sub and config.guess
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./config
+cp "$BUILD_PREFIX"/share/gnuconfig/config.* ./config
 
-bash configure --prefix=$PREFIX --disable-all-programs --enable-libuuid --with-bashcompletiondir=$PREFIX/share
+bash configure --prefix="$PREFIX" \
+    --disable-all-programs \
+    --enable-libuuid \
+    --disable-static
 
-make
-if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
-make tests
+make -j"${CPU_COUNT}" libuuid.la
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" != "1" ]]; then
+    make -j"${CPU_COUNT}" test_uuid_parser test_uuid_time
+    ./test_uuid_parser
+    ./test_uuid_time
 fi
-make install
 
-rm -fr $PREFIX/share
+# Install only the library and development files; util-linux owns the UUID manpages.
+make install-usrlib_execLTLIBRARIES install-uuidincHEADERS install-pkgconfigDATA
